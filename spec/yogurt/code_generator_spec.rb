@@ -13,7 +13,7 @@ RSpec.describe Yogurt::CodeGenerator do
     GRAPHQL
 
     FakeContainer.declare_query(query_text)
-    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
     generator.generate(FakeContainer.declared_queries[0])
 
     classes = generator.classes
@@ -62,7 +62,7 @@ RSpec.describe Yogurt::CodeGenerator do
     GRAPHQL
 
     FakeContainer.declare_query(query_text)
-    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
     generator.generate(FakeContainer.declared_queries[0])
 
     viewer_class = generator.classes["::FakeContainer::SomeQuery::Viewer"]
@@ -88,7 +88,7 @@ RSpec.describe Yogurt::CodeGenerator do
     GRAPHQL
 
     FakeContainer.declare_query(query_text)
-    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
     generator.generate(FakeContainer.declared_queries[0])
 
     query_class = generator.classes["::FakeContainer::SomeQuery"]
@@ -122,7 +122,7 @@ RSpec.describe Yogurt::CodeGenerator do
     GRAPHQL
 
     FakeContainer.declare_query(query_text)
-    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
     generator.generate(FakeContainer.declared_queries[0])
 
     check_run_input = generator.classes['::FakeSchema::CreateCheckRunInput']
@@ -181,7 +181,7 @@ RSpec.describe Yogurt::CodeGenerator do
     GRAPHQL
 
     FakeContainer.declare_query(query_text)
-    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
     generator.generate(FakeContainer.declared_queries[0])
 
     query = generator.classes["::FakeContainer::AliasedQuery"]
@@ -230,7 +230,7 @@ RSpec.describe Yogurt::CodeGenerator do
         }
       GRAPHQL
 
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       FakeContainer.declared_queries.each {|declaration| generator.generate(declaration)}
       expect(generator.content_files.map(&:constant_name).sort).to eq([
         "::FakeContainer::AliasedQuery",
@@ -265,7 +265,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       node_class = generator.classes["::FakeContainer::NodeQuery::Node"]
@@ -292,7 +292,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       node_class = generator.classes["::FakeContainer::NodeQuery::Node"]
@@ -339,7 +339,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       node_class = generator.classes["::FakeContainer::NodeQuery::Node"]
@@ -363,7 +363,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       viewer_class = generator.classes["::FakeContainer::ViewerQuery::Viewer"]
@@ -391,7 +391,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       node_class = generator.classes["::FakeContainer::NodeQuery::Node"]
@@ -424,7 +424,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       viewer_class = generator.classes["::FakeContainer::NodeQuery::Viewer"]
@@ -446,7 +446,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       viewer_class = generator.classes["::FakeContainer::NodeQuery::Viewer"]
@@ -483,7 +483,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       node_class = generator.classes["::FakeContainer::NodeQuery::Node"]
@@ -559,7 +559,7 @@ RSpec.describe Yogurt::CodeGenerator do
       GRAPHQL
 
       FakeContainer.declare_query(query_text)
-      generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+      generator = Yogurt::CodeGenerator.new(FakeSchema, "GeneratedCode")
       generator.generate(FakeContainer.declared_queries[0])
 
       project_card_class = generator.classes["::FakeContainer::NodeQuery::Node::ProjectCard"]

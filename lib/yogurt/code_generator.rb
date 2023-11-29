@@ -15,10 +15,10 @@ module Yogurt
     sig {returns(T::Hash[String, DefinedClass])}
     attr_reader :classes
 
-    sig {params(schema: GRAPHQL_SCHEMA, generated_code_module: Module).void}
-    def initialize(schema, generated_code_module)
+    sig {params(schema: GRAPHQL_SCHEMA, output_module_name: String).void}
+    def initialize(schema, output_module_name)
       @schema = T.let(schema, GRAPHQL_SCHEMA)
-      @generated_code_module = T.let(generated_code_module, Module)
+      @output_module_name = T.let(output_module_name, String)
 
       # Maps GraphQL enum name to class name
       @enums = T.let({}, T::Hash[String, String])
@@ -99,7 +99,7 @@ module Yogurt
         end
 
         ensure_constant_name(name)
-        module_name = "::#{declaration.container.name}::#{name}"
+        module_name = "#{@output_module_name}::Queries::#{name}"
         generate_result_class(
           module_name,
           owner_type,
@@ -137,7 +137,7 @@ module Yogurt
       enum_class_name = @enums[enum_type.graphql_name]
       return enum_class_name if enum_class_name
 
-      klass_name = "::#{@generated_code_module.name}::#{enum_type.graphql_name}"
+      klass_name = "#{@output_module_name}::Schema::#{enum_type.graphql_name}"
       add_class(EnumClass.new(name: klass_name, serialized_values: enum_type.values.keys))
       @enums[enum_type.graphql_name] = klass_name
     end
