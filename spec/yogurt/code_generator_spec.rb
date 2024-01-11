@@ -50,6 +50,35 @@ RSpec.describe Yogurt::CodeGenerator do
     type_check(generator.contents)
   end
 
+  it "generates code for basic queries using mixed case spelling" do
+    query_text = <<~'GRAPHQL'
+      query CreateUSBusinessAccountHolder {
+        viewer {
+          login
+          createdAt
+        }
+      }
+    GRAPHQL
+
+    FakeContainer.declare_query(query_text)
+    generator = Yogurt::CodeGenerator.new(FakeSchema, GeneratedCode)
+    generator.generate(FakeContainer.declared_queries[0])
+
+    classes = generator.classes
+    expect(classes).to include '::FakeContainer::CreateUsBusinessAccountHolder'
+    expect(classes).to include '::FakeContainer::CreateUsBusinessAccountHolder::Viewer'
+
+    query_class = generator.classes["::FakeContainer::CreateUsBusinessAccountHolder"]
+    expect(query_class.name).to eq "::FakeContainer::CreateUsBusinessAccountHolder"
+    expect(query_class.operation_name).to eq "CreateUSBusinessAccountHolder" # note that this keeps the original casing
+
+    viewer_class = generator.classes["::FakeContainer::CreateUsBusinessAccountHolder::Viewer"]
+    expect(viewer_class.name).to eq "::FakeContainer::CreateUsBusinessAccountHolder::Viewer"
+
+    # Generated code should pass sorbet typechecking
+    type_check(generator.contents)
+  end
+
   it "handles scalar converters" do
     Yogurt.register_scalar(FakeSchema, "DateTime", Yogurt::Converters::Time)
 

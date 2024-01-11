@@ -1,6 +1,8 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'active_support/core_ext/string/inflections'
+
 module Yogurt
   class CodeGenerator
     extend T::Sig
@@ -100,7 +102,7 @@ module Yogurt
         end
 
         ensure_constant_name(name)
-        module_name = "::#{declaration.container.name}::#{name}"
+        module_name = "::#{declaration.container.name}::#{name.underscore.camelize}"
         generate_result_class(
           module_name,
           owner_type,
